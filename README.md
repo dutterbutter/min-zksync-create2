@@ -1,66 +1,79 @@
-## Foundry
+# min-zksync-create2
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+This repository demonstrates how to compute and deploy contracts using `create2` on ZKsync and compares it to traditional EVM-based chains. It provides tests for deploying smart contracts using `create2` on both ZKsync and EVM, allowing you to observe the differences between the two implementations.
 
-Foundry consists of:
+## Prerequisites
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+Ensure that you have `foundry-zksync` installed. Follow the installation instructions in the [Foundry-zksync repository](https://github.com/matter-labs/foundry-zksync?tab=readme-ov-file#quick-install).
 
-## Documentation
+## Getting Started
 
-https://book.getfoundry.sh/
+To get started with this repository, follow the steps below:
 
-## Usage
+### 1. Clone the repository
 
-### Build
-
-```shell
-$ forge build
+```bash
+git clone git@github.com:dutterbutter/min-zksync-create2.git
 ```
 
-### Test
+Navigate into the project directory:
 
-```shell
-$ forge test
+```bash
+cd min-zksync-create2
 ```
 
-### Format
+### 2. Install Dependencies
 
-```shell
-$ forge fmt
+Install the necessary dependencies using `forge`:
+
+```bash
+forge install
 ```
 
-### Gas Snapshots
+### 3. Build the Project for zkSync
 
-```shell
-$ forge snapshot
+To build the project for zkSync, run:
+
+```bash
+forge build --zksync
 ```
 
-### Anvil
+You may encounter a compilation error due to a placeholder value in the system contracts library.
 
-```shell
-$ anvil
+### 4. Fix the Compilation Error
+
+To fix the compilation error, navigate to the `Constants.sol` file in the `era-contracts` library and replace the placeholder value with the actual system contract offset value:
+
+- File: `lib/era-contracts/system-contracts/contracts/Constants.sol:20:44`
+  
+- Change:
+
+```solidity
+uint160 constant SYSTEM_CONTRACTS_OFFSET = {{SYSTEM_CONTRACTS_OFFSET}}; // 2^15
 ```
 
-### Deploy
+- To:
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+```solidity
+uint160 constant SYSTEM_CONTRACTS_OFFSET = 32768; // 2^15
 ```
 
-### Cast
+### 5. Run Tests
 
-```shell
-$ cast <subcommand>
+After fixing the compilation error, you can run the tests for both zkSync and EVM-based chains to observe the differences.
+
+#### Running Tests on zkSync
+
+To run the tests on zkSync, use the following command:
+
+```bash
+forge test --match-path test/Create2Testzk.t.sol -vvv --zksync --zk-enable-eravm-extensions
 ```
 
-### Help
+#### Running Tests on EVM
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
+To run the tests on an EVM-based chain, use the following command:
+
+```bash
+forge test --match-path test/Create2Test.t.sol -vvv
 ```
