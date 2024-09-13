@@ -55,7 +55,7 @@ uint160 constant SYSTEM_CONTRACTS_OFFSET = {{SYSTEM_CONTRACTS_OFFSET}}; // 2^15
 - To:
 
 ```solidity
-uint160 constant SYSTEM_CONTRACTS_OFFSET = 32768; // 2^15
+uint160 constant SYSTEM_CONTRACTS_OFFSET = 0x8000; // 2^15
 ```
 
 ### 5. Run Tests
