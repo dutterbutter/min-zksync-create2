@@ -67,7 +67,7 @@ After fixing the compilation error, you can run the tests for both zkSync and EV
 To run the tests on zkSync, use the following command:
 
 ```bash
-forge test --match-path test/Create2Testzk.t.sol -vvv --zksync --zk-enable-eravm-extensions
+forge test --match-path test/Create2DeterministicDeployTest.t.sol -vvv --zksync --zk-enable-eravm-extensions
 ```
 
 #### Running Tests on EVM
