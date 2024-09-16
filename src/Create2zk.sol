@@ -16,19 +16,6 @@ contract ZKCreate2 {
         bytes32 bytecodeHash, 
         bytes calldata inputData
     ) external payable returns (address create2Address) {
-        
-        console.log("\n---------- Deployment Parameters ----------");
-        console.log("Salt:");
-        console.logBytes32(salt);
-        console.log("Bytecode Hash:");
-        console.logBytes32(bytecodeHash);
-        console.log("Constructor Input Data:");
-        console.logBytes(inputData);
-        console.log("Gas Limit Available:", gasleft());
-        console.log("Deployer System Contract Address:");
-        console.logAddress(address(DEPLOYER_SYSTEM_CONTRACT));
-        console.log("---------- Starting CREATE2 Deployment ----------\n");
-
         (bool success, bytes memory returnData) = SystemContractsCaller
             .systemCallWithReturndata(
                 uint32(gasleft()),
@@ -67,9 +54,6 @@ contract ZKCreate2 {
     }
 
     function deploy(bytes32 salt) external payable returns (address addr) {
-        console.log("Transaction Origin (tx.origin):", tx.origin);
-        console.log("Message Sender (msg.sender):", msg.sender);
         addr = address(new Counter{salt: salt}());
-        console.log("Contract deployed at (via native CREATE2):", addr);
     }
 }
