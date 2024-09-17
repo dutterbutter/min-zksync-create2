@@ -4,7 +4,9 @@ pragma solidity ^0.8.20;
 import {console} from "forge-std/Console.sol";
 import {Counter} from "./Counter.sol";
 
-contract Create2 {
+// This contract is used to deploy a contract using create2 on EVM based chains
+// Simply included for reference.
+contract Create2EVM {
 
     error Create2EmptyBytecode();
 

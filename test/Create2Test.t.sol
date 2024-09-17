@@ -3,14 +3,14 @@ pragma solidity ^0.8.20;
 
 import "forge-std/Test.sol";
 import {Counter} from "../src/Counter.sol";
-import {Create2} from "../src/Create2.sol";
+import {Create2EVM} from "../src/Create2EVM.sol";
 
 contract Create2Test is Test {
-    Create2 internal create2;
+    Create2EVM internal create2;
     Counter internal counter;
 
     function setUp() public {
-        create2 = new Create2();
+        create2 = new Create2EVM();
         counter = new Counter();
     }
     function testDeterministicDeploy() public {
@@ -29,5 +29,4 @@ contract Create2Test is Test {
     
         assertEq(computedAddress, deployedAddress);  
     }
-
 }

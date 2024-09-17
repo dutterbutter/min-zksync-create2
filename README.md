@@ -30,9 +30,9 @@ Install the necessary dependencies using `forge`:
 forge install
 ```
 
-### 3. Build the Project for zkSync
+### 3. Build the Project for ZKsync
 
-To build the project for zkSync, run:
+To build the project for ZKsync, run:
 
 ```bash
 forge build --zksync
@@ -62,12 +62,12 @@ uint160 constant SYSTEM_CONTRACTS_OFFSET = 0x8000; // 2^15
 
 After fixing the compilation error, you can run the tests for both zkSync and EVM-based chains to observe the differences.
 
-#### Running Tests on zkSync
+#### Running Tests on ZKsync
 
-To run the tests on zkSync, use the following command:
+To run the tests on ZKsync, use the following command:
 
 ```bash
-forge test --match-path test/Create2DeterministicDeployTest.t.sol -vvv --zksync
+forge test --match-path test/Create2ZK.t.sol --zksync --enable-eravm-extensions -vvvv
 ```
 
 #### Running Tests on EVM

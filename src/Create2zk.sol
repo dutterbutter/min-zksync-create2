@@ -7,11 +7,12 @@ import {DEPLOYER_SYSTEM_CONTRACT} from "era-contracts/system-contracts/contracts
 import {Counter} from "./Counter.sol";
 import {L2ContractHelper} from "era-contracts/l2-contracts/contracts/L2ContractHelper.sol";
 
-contract ZKCreate2 {
+// This contract is used to deploy a contract using create2 on ZKsync based chains
+contract Create2ZK {
     
     error Create2FailedDeployment();
 
-    function deployCreate2(
+    function deploy(
         bytes32 salt, 
         bytes32 bytecodeHash, 
         bytes calldata inputData
@@ -51,9 +52,5 @@ contract ZKCreate2 {
             bytecodeHash,
             constructorInputHash
         );
-    }
-
-    function deploy(bytes32 salt) external payable returns (address addr) {
-        addr = address(new Counter{salt: salt}());
     }
 }
