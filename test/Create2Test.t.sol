@@ -13,20 +13,21 @@ contract Create2Test is Test {
         create2 = new Create2EVM();
         counter = new Counter();
     }
+
     function testDeterministicDeploy() public {
         vm.deal(address(0x1), 100 ether);
 
-        vm.startPrank(address(0x1));  
+        vm.startPrank(address(0x1));
         bytes32 salt = "12345";
         bytes memory creationCode = abi.encodePacked(type(Counter).creationCode);
-        
+
         address computedAddress = create2.computeAddress(salt, keccak256(creationCode));
         address deployedAddress = create2.deploy(salt);
         vm.stopPrank();
 
         console.log("Computed contract address:", computedAddress);
         console.log("Deployed contract address:", deployedAddress);
-    
-        assertEq(computedAddress, deployedAddress);  
+
+        assertEq(computedAddress, deployedAddress);
     }
 }

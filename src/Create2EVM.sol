@@ -7,7 +7,6 @@ import {Counter} from "./Counter.sol";
 // This contract is used to deploy a contract using create2 on EVM based chains
 // Simply included for reference.
 contract Create2EVM {
-
     error Create2EmptyBytecode();
 
     error Create2FailedDeployment();
@@ -21,12 +20,13 @@ contract Create2EVM {
         }
         return address(counter);
     }
+
     function computeAddress(bytes32 salt, bytes32 creationCodeHash) external view returns (address addr) {
         address contractAddress = address(this);
-        
+
         assembly {
             let ptr := mload(0x40)
-    
+
             mstore(add(ptr, 0x40), creationCodeHash)
             mstore(add(ptr, 0x20), salt)
             mstore(ptr, contractAddress)
